@@ -4,15 +4,25 @@
   <title>My first Vue app</title>
   <script src="https://unpkg.com/vue"></script>
   <script src="http://underscorejs.ru/underscore-min.js"></script>
+  <style>
+    </style>
 </head>
 <body>
   <div id="app">
     {{ message }}
-    <table v-for="month in months">
-      <tr v-for="week in month">
-        <td v-for="day in week">{{day}}</td>
-      </tr>
-    </table>
+    <div>
+      <table  width=100%>
+        <tr>
+          <td valign="top" v-for="month in months" style="padding:10px">
+            <table style="color: red">
+            <tr v-for="week in month.weeks">
+              <td v-for="day in week">{{day}}</td>
+            </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
   <script src="js/main.js"></script>
 </body>

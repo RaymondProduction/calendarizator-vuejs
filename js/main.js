@@ -16,18 +16,23 @@
       },
 
       methods: {
+        daysInMonth(month) {
+          // let monthStart = new Date(this.year, m, 1);
+          // let monthEnd = new Date(this.year, m + 1, 1);
+          //var monthLength = (monthEnd - monthStart) / (1000 * 60 * 60 * 24)
+          return 33 - new Date(this.year, month-1, 33).getDate();
+         },
         weekDay() {
           let d;
           for (let m = 1; m < 11; m++) {
             this.weeks= [];
             this.days = [];
-            let monthStart = new Date(this.year, m, 1);
-            let monthEnd = new Date(this.year, m + 1, 1);
-            let monthLength = (monthEnd - monthStart) / (1000 * 60 * 60 * 24);
+
+            let monthLength = this.daysInMonth(m);
             for (d = 1; d < monthLength+1; d++) {
               let day = new Date(this.year, m - 1, d).getDay();
-              if (day === 0) day = 7;
-              this.days[day - 1] = d;
+              if (day === 0) {day = 7} else {day = day - 1};
+              this.days[day] = d;
               console.log(d);
               if (day === 7 || d >= monthLength) {
                  console.log('YES d >= monthLength', d >= monthLength);
@@ -40,8 +45,7 @@
             console.log('d:',d,' ','monthLength:', monthLength,' d >= monthLength', d >= monthLength);
             console.log('weeks:',this.weeks);
             console.log('monthLength:',monthLength);
-
-            this.months.push(this.weeks)
+            this.months.push({weeks: this.weeks, name: this.year+'/'+m});
           }
         }
       },
