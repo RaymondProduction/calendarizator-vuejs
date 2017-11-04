@@ -11,10 +11,11 @@
   <div id="app">
     {{ message }}
     <div>
-      <table  width=100%>
+      <table  width=100% v-for="seson in sesons">
         <tr>
-          <td valign="top" v-for="month in months" style="padding:10px">
-            <table style="color: red">
+          <td valign="top" v-for="month in seson" style="padding:10px">
+            <span>{{month.name}}</span>
+            <table style="color: blue">
             <tr v-for="week in month.weeks">
               <td v-for="day in week">{{day}}</td>
             </tr>
