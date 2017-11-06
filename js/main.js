@@ -73,7 +73,7 @@
                 if (day == 0) {
                   day = 7
                 }
-                days[day] = {number: d, name: day};
+                days[day-1] = {number: d, name: day};
                 if (day === 7 || d >= monthLength) {
                   weeks.push({days : days});
                   days = new Array(7);
