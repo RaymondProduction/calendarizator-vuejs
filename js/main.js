@@ -9,51 +9,92 @@
           }, {
             value: '5'
           }],
+          fontSize: 3,
           sesons: [],
           dayNames: [{
-            ru:'Пн', en: 'Mo',
-          },{
-            ru:'Вт', en: 'Tu',
-          },{
-            ru:'Ср', en: 'We',
-          },{
-            ru:'Чт', en: 'Th',
-          },{
-            ru:'Пт', en: 'Fr',
-          },{
-            ru:'Сб', en: 'Th',
-          },{
-            ru:'Вс', en: 'Su'
+            ru: 'Пн',
+            en: 'Mo',
+          }, {
+            ru: 'Вт',
+            en: 'Tu',
+          }, {
+            ru: 'Ср',
+            en: 'We',
+          }, {
+            ru: 'Чт',
+            en: 'Th',
+          }, {
+            ru: 'Пт',
+            en: 'Fr',
+          }, {
+            ru: 'Сб',
+            en: 'Th',
+          }, {
+            ru: 'Вс',
+            en: 'Su'
           }, ],
           nameMonth: [{
-            uk: 'Январь', en : 'January', ua: 'Січень',
+            uk: 'Январь',
+            en: 'January',
+            ua: 'Січень',
           }, {
-            uk: 'Февраль', en : 'February', ua: 'Лютий',
+            uk: 'Февраль',
+            en: 'February',
+            ua: 'Лютий',
           }, {
-            uk: 'Март', en : 'March', ua: 'Березень',
+            uk: 'Март',
+            en: 'March',
+            ua: 'Березень',
           }, {
-            uk: 'Апрель', en : 'April', ua: 'Квітень',
+            uk: 'Апрель',
+            en: 'April',
+            ua: 'Квітень',
           }, {
-            uk: 'Май', en : 'May', ua: 'Травень',
+            uk: 'Май',
+            en: 'May',
+            ua: 'Травень',
           }, {
-            uk: 'Июнь', en : 'June', ua: 'Червень',
+            uk: 'Июнь',
+            en: 'June',
+            ua: 'Червень',
           }, {
-            uk: 'Июль', en : 'July', ua: 'Липень',
+            uk: 'Июль',
+            en: 'July',
+            ua: 'Липень',
           }, {
-            uk: 'Август', en : 'August', ua: 'Серпень',
+            uk: 'Август',
+            en: 'August',
+            ua: 'Серпень',
           }, {
-            uk: 'Сентябрь', en : 'September', ua: 'Вересень',
+            uk: 'Сентябрь',
+            en: 'September',
+            ua: 'Вересень',
           }, {
-            uk: 'Октябрь', en : 'October', ua: 'Жовтень',
+            uk: 'Октябрь',
+            en: 'October',
+            ua: 'Жовтень',
           }, {
-            uk: 'Ноябрь', en : 'November', ua: 'Листопад',
+            uk: 'Ноябрь',
+            en: 'November',
+            ua: 'Листопад',
           }, {
-            uk: 'Декабрь', en : 'December', ua: 'Грудень',
+            uk: 'Декабрь',
+            en: 'December',
+            ua: 'Грудень',
           }, ]
         }
       },
 
       methods: {
+        classObject(day) {
+          //if (!day.name) return;
+          return {
+            'weekdays': day.name < 6,
+            'saturday': day.name == 6,
+            'sunday': day.name == 7,
+            'status2': day.status == 2,
+          }
+        },
         daysInMonth(month) {
           // let monthStart = new Date(this.year, m, 1);
           // let monthEnd = new Date(this.year, m + 1, 1);
@@ -73,9 +114,16 @@
                 if (day == 0) {
                   day = 7
                 }
-                days[day-1] = {number: d, name: day};
+                days[day - 1] = {
+                  number: d,
+                  name: day,
+                  month: m,
+                  status: 1
+                };
                 if (day === 7 || d >= monthLength) {
-                  weeks.push({days : days});
+                  weeks.push({
+                    days: days
+                  });
                   days = new Array(7);
                 }
               }
@@ -87,7 +135,19 @@
             this.sesons.push(months);
             months = [];
           }
-        }
+        },
+        reaction(s, m, w, d) {
+          console.log('==>', s, m, w, d);
+          console.log(this.sesons[s][m].weeks[w].days[d]);
+          this.sesons[s][m].weeks[w].days[d].status = 2;
+
+        },
+        reaction2(s, m, w, d) {
+          console.log('==>', s, m, w, d);
+          console.log(this.sesons[s][m].weeks[w].days[d]);
+          this.sesons[s][m].weeks[w].days[d].status = 3;
+
+        },
       },
       created() {
         this.weekDay();
