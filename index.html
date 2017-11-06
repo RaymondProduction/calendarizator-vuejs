@@ -16,9 +16,15 @@
           <td valign="top" v-for="month in seson" style="padding:10px">
             <span>{{month.name}}</span>
             <table style="color: blue">
+            <tr>
+              <td></td>
+              <td style="color: gray"v-for="dayName in dayNames">{{dayName.en}}</td>
+            </tr>
             <tr v-for="week in month.weeks">
               <td v-for="day in week.days">
-              <span  v-if="day">{{day.number}}</span>
+                <span  v-if="day && day.name<6" style="color:blue">{{day.number}}</span>
+                <span  v-if="day && day.name==6" style="color:orange">{{day.number}}</span>
+                <span  v-if="day && day.name==7" style="color:red">{{day.number}}</span>
               </td>
             </tr>
             </table>

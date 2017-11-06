@@ -10,6 +10,21 @@
             value: '5'
           }],
           sesons: [],
+          dayNames: [{
+            ru:'Пн', en: 'Mo',
+          },{
+            ru:'Вт', en: 'Tu',
+          },{
+            ru:'Ср', en: 'We',
+          },{
+            ru:'Чт', en: 'Th',
+          },{
+            ru:'Пт', en: 'Fr',
+          },{
+            ru:'Сб', en: 'Th',
+          },{
+            ru:'Вс', en: 'Su'
+          }, ],
           nameMonth: [{
             uk: 'Январь', en : 'January', ua: 'Січень',
           }, {
