@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>My first Vue app</title>
+  <title>Calendarizator</title>
   <script src="https://unpkg.com/vue"></script>
   <script src="http://underscorejs.ru/underscore-min.js"></script>
   <style>
@@ -17,7 +17,9 @@
             <span>{{month.name}}</span>
             <table style="color: blue">
             <tr v-for="week in month.weeks">
-              <td v-for="day in week">{{day}}</td>
+              <td v-for="day in week.days">
+              <span  v-if="day">{{day.number}}</span>
+              </td>
             </tr>
             </table>
           </td>

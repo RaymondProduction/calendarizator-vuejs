@@ -11,29 +11,29 @@
           }],
           sesons: [],
           nameMonth: [{
-            uk: 'Январь', en : 'January',
+            uk: 'Январь', en : 'January', ua: 'Січень',
           }, {
-            uk: 'Февраль', en : 'February',
+            uk: 'Февраль', en : 'February', ua: 'Лютий',
           }, {
-            uk: 'Март', en : 'March',
+            uk: 'Март', en : 'March', ua: 'Березень',
           }, {
-            uk: 'Апрель', en : 'April',
+            uk: 'Апрель', en : 'April', ua: 'Квітень',
           }, {
-            uk: 'Май', en : 'May',
+            uk: 'Май', en : 'May', ua: 'Травень',
           }, {
-            uk: 'Июнь', en : 'June',
+            uk: 'Июнь', en : 'June', ua: 'Червень',
           }, {
-            uk: 'Июль', en : 'July',
+            uk: 'Июль', en : 'July', ua: 'Липень',
           }, {
-            uk: 'Август', en : 'August',
+            uk: 'Август', en : 'August', ua: 'Серпень',
           }, {
-            uk: 'Сентябрь', en : 'September',
+            uk: 'Сентябрь', en : 'September', ua: 'Вересень',
           }, {
-            uk: 'Октябрь', en : 'October',
+            uk: 'Октябрь', en : 'October', ua: 'Жовтень',
           }, {
-            uk: 'Ноябрь', en : 'November',
+            uk: 'Ноябрь', en : 'November', ua: 'Листопад',
           }, {
-            uk: 'Декабрь', en : 'December',
+            uk: 'Декабрь', en : 'December', ua: 'Грудень',
           }, ]
         }
       },
@@ -46,25 +46,22 @@
           return 33 - new Date(this.year, month, 33).getDate();
         },
         weekDay() {
-          let d;
           let months = [];
           for (let s = 0; s < 4; s++) {
             let weeks;
             for (let m = s * 3; m < (s + 1) * 3; m++) {
               weeks = [];
-              days = [];
+              days = new Array(7);
               let monthLength = this.daysInMonth(m);
-              for (d = 1; d < monthLength + 1; d++) {
+              for (let d = 1; d < monthLength + 1; d++) {
                 let day = new Date(this.year, m, d).getDay();
-                if (day === 0) {
+                if (day == 0) {
                   day = 7
-                } else {
-                  day = day - 1
-                };
-                days[day] = d;
+                }
+                days[day] = {number: d, name: day};
                 if (day === 7 || d >= monthLength) {
-                  weeks.push(days);
-                  days = [];
+                  weeks.push({days : days});
+                  days = new Array(7);
                 }
               }
               months.push({
@@ -79,5 +76,6 @@
       },
       created() {
         this.weekDay();
+        console.log(this.sesons)
       },
     })
