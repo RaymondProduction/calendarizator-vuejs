@@ -5,6 +5,10 @@
   <script src="https://unpkg.com/vue"></script>
   <script src="http://underscorejs.ru/underscore-min.js"></script>
   <style>
+  body {
+      cursor: default;
+       user-select: none;
+    }
     .weekdays {
       color: blue;
     }
@@ -20,23 +24,26 @@
     .status3 {
       color: green;
     }
+    .weight {
+     font-weight: 600;
+   }
   </style>
 </head>
 <body>
   <div id="app">
     {{ message }}
     <div>
-      <table  width=100% v-for="(seson, s) in sesons">
+      <table  width=100% v-for="seson in sesons">
         <tr>
-          <td valign="top" v-for="(month, m) in seson" style="padding:10px">
+          <td valign="top" v-for="month in seson" style="padding:10px">
             <span>{{month.name}}</span>
             <table style="color: blue">
             <tr>
               <td style="color: gray" v-for="dayName in dayNames">{{dayName.en}}</td>
             </tr>
-            <tr v-for="(week, w) in month.weeks">
-              <td v-for="(day, d) in week.days">
-                <span  v-if="day" v-bind:class="classObject(day)" @click="reaction(s,m,w,d)" @dblclick="reaction2(s,m,w,d)">{{day.number}}</span>
+            <tr v-for="week in month.weeks">
+              <td v-for="day in week.days">
+                <span  v-if="day" v-bind:class="classObject(day)" @click="reaction(day)">{{day.number}}</span>
               </td>
             </tr>
             </table>

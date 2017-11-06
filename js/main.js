@@ -86,13 +86,19 @@
       },
 
       methods: {
+        reaction(day) {
+          day.status++;
+          if (day.status > 3) day.status = 1;
+          console.log(day.status);
+        },
         classObject(day) {
           //if (!day.name) return;
           return {
             'weekdays': day.name < 6,
             'saturday': day.name == 6,
             'sunday': day.name == 7,
-            'status2': day.status == 2,
+            'status2 weight': day.status == 2,
+            'status3 weight': day.status == 3,
           }
         },
         daysInMonth(month) {
@@ -135,18 +141,6 @@
             this.sesons.push(months);
             months = [];
           }
-        },
-        reaction(s, m, w, d) {
-          console.log('==>', s, m, w, d);
-          console.log(this.sesons[s][m].weeks[w].days[d]);
-          this.sesons[s][m].weeks[w].days[d].status = 2;
-
-        },
-        reaction2(s, m, w, d) {
-          console.log('==>', s, m, w, d);
-          console.log(this.sesons[s][m].weeks[w].days[d]);
-          this.sesons[s][m].weeks[w].days[d].status = 3;
-
         },
       },
       created() {
