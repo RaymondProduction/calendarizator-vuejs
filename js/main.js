@@ -86,6 +86,7 @@
 
       methods: {
         reaction(day) {
+          if (!day) return;
           day.status++;
           if (day.status > 3) day.status = 1;
           console.log(day.status);
@@ -144,31 +145,33 @@
           }
         },
         schedule(){
+          console.log('ok');
           // Schedule, prepare array for table of schedule
           this.table = [];
           let dataForTable =[];
+          let number = 1;
           this.sesons.forEach((seson) => {
             seson.forEach((month) => {
               month.weeks.forEach((week) => {
                 week.days.forEach((day) => {
-                  let cols = [];
-                  cols.push({
+                  if (this.dayNames[day.name-1].check) dataForTable.push({
                     day: day.number,
                     month: month.number,
+                    number: number++,
                   });
-                  if (day.status>1) dataForTable.push(cols)
                 })
               })
             })
           })
           // Cut rows
-          let row = dataForTable.length<12 ? 4 : parseInt((dataForTable.length-1)/3)+1;
-          let col = 3;
+          let col = 4;
+          let maxRow=4;
+          let row = dataForTable.length<col*maxRow ? maxRow : parseInt((dataForTable.length-1)/col)+1;
           for (let currentRow = 0;currentRow< row;currentRow++){
              let cols = new Array(col);
             for (let currentCol = 0; currentCol<col;currentCol++) {
               if (dataForTable[currentCol*row+currentRow]){
-                cols[currentCol] = dataForTable[currentCol*row+currentRow][0];
+                cols[currentCol] = dataForTable[currentCol*row+currentRow];
               }
             }
             this.table.push(cols)

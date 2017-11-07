@@ -29,15 +29,20 @@
    }
    .schedule {
     height: : 2000px;
-    width: 100px;
+    width: 290px;
     border-collapse: collapse;
     }
     .schedule>tr {
       border: none;
     }
     .schedule>td{
-      width: 33%;
+      width: 25%;
       border-right: solid 1px gray;
+    }
+    .schedule>th{
+      width: 25%;
+      border-right: solid 1px gray;
+      border-bottom: solid 1px gray
     }
     .calendar{
      /* border:1px solid red;*/
@@ -48,9 +53,16 @@
       border:1px solid black;
       float:left;
       height: 100px;
-      width: 115px;
+      width: 300px;
       overflow-y: scroll;
       overflow-x: hidden;
+    }
+    .option{
+      float:left;
+      clear: left;
+    }
+    .chekboxes{
+       display: inline-block;
     }
   </style>
 </head>
@@ -77,11 +89,24 @@
     </div>
     <div class="table">
       <table class="schedule">
+        <tr>
+          <th class="schedule">A</th>
+          <th class="schedule">B</th>
+          <th class="schedule">C</th>
+          <th class="schedule">D</th>
+        </tr>
         <tr class="schedule" v-for="cols in table">
-         <td class="schedule" v-for="date in cols" v-if="date">{{date.day}}/{{date.month}}</td>
+         <td class="schedule" v-for="date in cols" v-if="date">{{date.number}}) {{date.day}}/{{date.month}}</td>
          <td class="schedule" v-else></td>
         </tr>
       </table>
+    </div>
+    <div class="option">
+      <div class="chekboxes" v-for="day in dayNames">
+        <input type="checkbox" id="day.en" @change="schedule()" v-model="day.check">
+        <label for="day.en">{{day.en}}</label>
+      </div>
+  </div>
     </div>
   </div>
   <script src="js/main.js"></script>
