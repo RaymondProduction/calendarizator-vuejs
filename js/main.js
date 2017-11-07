@@ -145,19 +145,35 @@
           }
         },
         schedule(){
+          // Schedule, prepare array for table of schedule
           this.table = [];
+          let dataForTable =[];
           this.sesons.forEach((seson) => {
             seson.forEach((month) => {
               month.weeks.forEach((week) => {
                 week.days.forEach((day) => {
-                  if (day.status>1) this.table.push({
+                  let cols = [];
+                  cols.push({
                     day: day.number,
                     month: month.number,
-                  })
+                  });
+                  if (day.status>1) dataForTable.push(cols)
                 })
               })
             })
           })
+          // Cut rows
+          let row = dataForTable.length<12 ? 4 : parseInt((dataForTable.length-1)/3)+1;
+          let col = 3;
+          for (let currentRow = 0;currentRow< row;currentRow++){
+             let cols = new Array();
+            for (let currentCol = 0; currentCol<col;currentCol++) {
+              if (dataForTable[currentCol*row+currentRow]){
+                cols[currentCol] = dataForTable[currentCol*row+currentRow][0];
+              }
+            }
+            this.table.push(cols)
+          }
         }
       },
       created() {

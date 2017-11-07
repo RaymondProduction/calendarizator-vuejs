@@ -61,8 +61,8 @@
               <td style="color: gray" v-for="dayName in dayNames">{{dayName.en}}</td>
             </tr>
             <tr v-for="week in month.weeks">
-              <td v-for="day in week.days">
-                <span  v-if="day" v-bind:class="classObject(day)" @click="reaction(day)">{{day.number}}</span>
+              <td v-for="day in week.days" @click="reaction(day)">
+                <span  v-if="day" v-bind:class="classObject(day)">{{day.number}}</span>
               </td>
             </tr>
             </table>
@@ -72,8 +72,9 @@
     </div>
     <div class="table">
       <table class="schedule">
-        <tr v-for="t in table">
-         <td>{{t.day}}/{{t.month}}</td>
+        <tr v-for="cols in table">
+         <td v-for="date in cols" v-if="date">{{date.day}}/{{date.month}}</td>
+         <td v-else></td>
         </tr>
       </table>
     </div>
