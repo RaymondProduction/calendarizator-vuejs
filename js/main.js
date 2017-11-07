@@ -9,7 +9,7 @@
           }, {
             value: '5'
           }],
-          fontSize: 3,
+          table: [],
           sesons: [],
           dayNames: [{
             ru: 'Пн',
@@ -90,6 +90,7 @@
           day.status++;
           if (day.status > 3) day.status = 1;
           console.log(day.status);
+          this.schedule();
         },
         classObject(day) {
           //if (!day.name) return;
@@ -135,16 +136,33 @@
               }
               months.push({
                 weeks: weeks,
-                name: this.nameMonth[m].en
+                name: this.nameMonth[m].en,
+                number: m+1,
               });
             }
             this.sesons.push(months);
             months = [];
           }
         },
+        schedule(){
+          this.table = [];
+          this.sesons.forEach((seson) => {
+            seson.forEach((month) => {
+              month.weeks.forEach((week) => {
+                week.days.forEach((day) => {
+                  if (day.status>1) this.table.push({
+                    day: day.number,
+                    month: month.number,
+                  })
+                })
+              })
+            })
+          })
+        }
       },
       created() {
         this.weekDay();
+        this.schedule();
         console.log(this.sesons)
       },
     })

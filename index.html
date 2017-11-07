@@ -27,13 +27,32 @@
     .weight {
      font-weight: 600;
    }
+   .schedule {
+    height: : 2000px;
+    width: 100px;
+    }
+    .schedule>td{
+      border: 1px solid red;
+    }
+    .calendar{
+     /* border:1px solid red;*/
+      width:80%;
+      float:left;
+    }
+    .table{
+      border:1px solid black;
+      float:left;
+      height: 100px;
+      width: 200px;
+      overflow: auto;
+    }
   </style>
 </head>
 <body>
   <div id="app">
     {{ message }}
-    <div>
-      <table  width=100% v-for="seson in sesons">
+    <div class="calendar">
+      <table  width=80% v-for="seson in sesons">
         <tr>
           <td valign="top" v-for="month in seson" style="padding:10px">
             <span>{{month.name}}</span>
@@ -48,6 +67,13 @@
             </tr>
             </table>
           </td>
+        </tr>
+      </table>
+    </div>
+    <div class="table">
+      <table class="schedule">
+        <tr v-for="t in table">
+         <td>{{t.day}}/{{t.month}}</td>
         </tr>
       </table>
     </div>
