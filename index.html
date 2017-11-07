@@ -30,9 +30,14 @@
    .schedule {
     height: : 2000px;
     width: 100px;
+    border-collapse: collapse;
+    }
+    .schedule>tr {
+      border: none;
     }
     .schedule>td{
-      border: 1px solid red;
+      width: 33%;
+      border-right: solid 1px gray;
     }
     .calendar{
      /* border:1px solid red;*/
@@ -43,14 +48,14 @@
       border:1px solid black;
       float:left;
       height: 100px;
-      width: 200px;
-      overflow: auto;
+      width: 115px;
+      overflow-y: scroll;
+      overflow-x: hidden;
     }
   </style>
 </head>
 <body>
   <div id="app">
-    {{ message }}
     <div class="calendar">
       <table  width=80% v-for="seson in sesons">
         <tr>
@@ -72,9 +77,9 @@
     </div>
     <div class="table">
       <table class="schedule">
-        <tr v-for="cols in table">
-         <td v-for="date in cols" v-if="date">{{date.day}}/{{date.month}}</td>
-         <td v-else></td>
+        <tr class="schedule" v-for="cols in table">
+         <td class="schedule" v-for="date in cols" v-if="date">{{date.day}}/{{date.month}}</td>
+         <td class="schedule" v-else></td>
         </tr>
       </table>
     </div>

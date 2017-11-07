@@ -2,7 +2,6 @@
       el: '#app',
       data() {
         return {
-          message: 'Hello Vue!!',
           year: 2017,
           items: [{
             value: '1'
@@ -166,7 +165,7 @@
           let row = dataForTable.length<12 ? 4 : parseInt((dataForTable.length-1)/3)+1;
           let col = 3;
           for (let currentRow = 0;currentRow< row;currentRow++){
-             let cols = new Array();
+             let cols = new Array(col);
             for (let currentCol = 0; currentCol<col;currentCol++) {
               if (dataForTable[currentCol*row+currentRow]){
                 cols[currentCol] = dataForTable[currentCol*row+currentRow][0];
