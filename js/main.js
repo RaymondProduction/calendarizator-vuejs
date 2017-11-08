@@ -99,7 +99,6 @@
           if (!day) return;
           day.status++;
           if (day.status > 2) day.status = 0;
-          console.log(day.status);
           this.schedule();
         },
         classObject(day) {
@@ -160,12 +159,12 @@
           }
         },
         schedule(){
-          console.log('ok');
           // Schedule, prepare array for table of schedule
           this.table = [];
           let dataForTable =[];
           let number = 1;
           let numerator = this.shift ? false : true;
+          let holiday = false;
           this.thids.forEach((thid) => {
             thid.forEach((month) => {
               month.weeks.forEach((week) => {
@@ -181,7 +180,9 @@
                     month: month.number,
                     number: number++,
                   });
-                  if (day.name == 7) numerator = !numerator;
+                  if (day.status == 2) holiday = true;
+                  if (day.name == 1 && day.status != 2) holiday = false;
+                  if (day.name == 7 && !holiday) numerator = !numerator;
                 })
               })
             })
