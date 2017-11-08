@@ -8,29 +8,39 @@
           }, {
             value: '5'
           }],
+          saturdayIsDayOff: true,
           table: [],
           thids: [],
+          shift: false,
+          holiday: {
+            d1m0: true,
+            d2m0: true,
+            d7m0: true,
+            d8m2: true,
+            d1m4: true,
+            d2m4: true
+          },
           dayNames: [{
             ru: 'Пн',
-            en: 'Mo',
+            en: 'Mon',
           }, {
             ru: 'Вт',
-            en: 'Tu',
+            en: 'Tue',
           }, {
             ru: 'Ср',
-            en: 'We',
+            en: 'Wed',
           }, {
             ru: 'Чт',
-            en: 'Th',
+            en: 'Thu',
           }, {
             ru: 'Пт',
-            en: 'Fr',
+            en: 'Fri',
           }, {
             ru: 'Сб',
-            en: 'Th',
+            en: 'Sat',
           }, {
             ru: 'Вс',
-            en: 'Su'
+            en: 'Sun'
           }, ],
           nameMonth: [{
             uk: 'Январь',
@@ -88,18 +98,16 @@
         reaction(day) {
           if (!day) return;
           day.status++;
-          if (day.status > 3) day.status = 1;
+          if (day.status > 2) day.status = 0;
           console.log(day.status);
           this.schedule();
         },
         classObject(day) {
           //if (!day.name) return;
           return {
-            'weekdays': day.name < 6,
-            'saturday': day.name == 6,
-            'sunday': day.name == 7,
-            'status2 weight': day.status == 2,
-            'status3 weight': day.status == 3,
+            'weekdays': day.status == 0,
+            'dayoff': day.status == 1,
+            'holiday': day.status == 2,
           }
         },
         daysInMonth(month) {
@@ -108,10 +116,11 @@
           //var monthLength = (monthEnd - monthStart) / (1000 * 60 * 60 * 24)
           return 33 - new Date(this.year, month, 33).getDate();
         },
-        weekDay() {
+        generatorOfCalendar() {
+          this.thids = [];
           let thidsOfYear =[[8,9,10],[11,0,1],[2,3,4]];
           let months = [];
-          let numerator = true;
+          let status =0;
           for (let i = 0; i < 3; i++) {
             let weeks;
             thidsOfYear[i].forEach((m)=>{
@@ -124,20 +133,21 @@
                 if (day == 0) {
                   day = 7
                 }
+                if (day ==7 || (day == 6 && this.saturdayIsDayOff)
+                  || this.holiday['d'+d+'m'+m]) status = 1
+                else status = 0;
                 days[day - 1] = {
                   number: d,
                   name: day,
                   month: m,
-                  status: 1
+                  status: status
                 };
                 if (day === 7 || d >= monthLength) {
                   weeks.push({
                     days: days,
-                    numerator : numerator,
                   });
                   days = new Array(7);
                 }
-                if (day ===7) numerator = !numerator;
               }
               months.push({
                 weeks: weeks,
@@ -155,26 +165,30 @@
           this.table = [];
           let dataForTable =[];
           let number = 1;
+          let numerator = this.shift ? false : true;
           this.thids.forEach((thid) => {
             thid.forEach((month) => {
               month.weeks.forEach((week) => {
                 week.days.forEach((day) => {
                   if (
-                    this.dayNames[day.name-1].numerator && week.numerator
+                    (this.dayNames[day.name-1].numerator && numerator
                     ||
-                    this.dayNames[day.name-1].denominator && !week.numerator
+                    this.dayNames[day.name-1].denominator && !numerator)
+                    &&
+                    day.status == 0
                     ) dataForTable.push({
                     day: day.number,
                     month: month.number,
                     number: number++,
                   });
+                  if (day.name == 7) numerator = !numerator;
                 })
               })
             })
           })
           // Cut rows
           let col = 4;
-          let maxRow=4;
+          let maxRow=20;
           let row = dataForTable.length<col*maxRow ? maxRow : parseInt((dataForTable.length-1)/col)+1;
           for (let currentRow = 0;currentRow< row;currentRow++){
              let cols = new Array(col);
@@ -188,7 +202,7 @@
         }
       },
       created() {
-        this.weekDay();
+        this.generatorOfCalendar();
         this.schedule();
         console.log(this.thids)
       },

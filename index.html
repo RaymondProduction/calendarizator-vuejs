@@ -12,58 +12,52 @@
     .weekdays {
       color: blue;
     }
-    .saturday {
-      color:  orange;
-    }
-    .sunday {
+    .dayoff {
       color: red;
     }
-    .status2 {
-      color: violet;
-    }
-    .status3 {
+    .holiday {
       color: green;
     }
     .weight {
      font-weight: 600;
    }
-   .schedule {
+   .table {
     height: : 2000px;
     width: 290px;
     border-collapse: collapse;
     }
-    .schedule>tr {
+    .table>tr {
       border: none;
     }
-    .schedule>td{
+    .table>td{
       width: 25%;
       border-right: solid 1px gray;
     }
-    .schedule>th{
+    .table>th{
       width: 25%;
       border-right: solid 1px gray;
       border-bottom: solid 1px gray
     }
     .calendar{
      /* border:1px solid red;*/
-      width:600px;
+      width:700px;
       float:left;
     }
-    .table{
+    .schedule{
       position: absolute;
-      left: 610px;
+      left: 0px;
       top: 2px;
       border:1px solid black;
       /*float:left;*/
-      height: 100px;
+      height: 400px;
       width: 300px;
       overflow-y: scroll;
       overflow-x: hidden;
     }
     .option{
       position: absolute;
-      left: 610px;
-      top: 110px;
+      left: 0px;
+      top: 410px;
       width: 400px;
     }
     .numerator{
@@ -76,6 +70,16 @@
       left: 0px;
       top:30px;
     }
+    .saturday{
+      position: absolute;
+      left: 0px;
+      top:60px;
+    }
+    .shift{
+      position: absolute;
+      left: 0px;
+      top:80px;
+    }
     .numerator-label{
       margin-right: 15px;
       float: left;
@@ -87,6 +91,7 @@
        float: left;
     }
     .panel{
+      position:relative;
       width: 400px;
       float: left;
     }
@@ -117,36 +122,44 @@
       </table>
     </div>
     <div class="panel">
-      <div class="table">
-        <table class="schedule">
+      <div class="schedule">
+        <table class="table">
           <tr>
-            <th class="schedule">A</th>
-            <th class="schedule">B</th>
-            <th class="schedule">C</th>
-            <th class="schedule">D</th>
+            <th class="table">A</th>
+            <th class="table">B</th>
+            <th class="table">C</th>
+            <th class="table">D</th>
           </tr>
-          <tr class="schedule" v-for="cols in table">
-           <td class="schedule" v-for="date in cols" v-if="date">{{date.number}}) {{date.day}}/{{date.month}}</td>
-           <td class="schedule" v-else></td>
+          <tr class="table" v-for="cols in table">
+           <td class="table" v-for="date in cols" v-if="date">{{date.number}}) {{date.day}}/{{date.month}}</td>
+           <td class="table" v-else></td>
           </tr>
         </table>
       </div>
       <div class="option">
         <div class="numerator">
           <div class="numerator-label">Numerator:</div>
-          <div class="chekboxes" v-for="day in dayNames">
-            <input type="checkbox" id="day.en" @change="schedule()" v-model="day.numerator">
-            <label for="day.en">{{day.en}}</label>
+          <div class="chekboxes" v-for="(day, i) in dayNames">
+            <input v-if="i!=6" type="checkbox" id="day.en" @change="schedule()" v-model="day.numerator">
+            <label v-if="i!=6" for="day.en">{{day.en}}</label>
           </div>
         </div>
         <div class="denominator">
           <div class="denominator-label">Denominator:</div>
-          <div class="chekboxes" v-for="day in dayNames">
-            <input type="checkbox" id="day.en" @change="schedule()" v-model="day.denominator">
-            <label for="day.en">{{day.en}}</label>
+          <div class="chekboxes" v-for="(day, i)  in dayNames">
+            <input v-if="i!=6" type="checkbox" id="day.en" @change="schedule()" v-model="day.denominator">
+            <label v-if="i!=6"  for="day.en">{{day.en}}</label>
           </div>
         </div>
-    </div>
+        <div class="saturday">
+          <input type="checkbox" id="saturday" @change="generatorOfCalendar(); schedule()" v-model="saturdayIsDayOff">
+            <label for="saturday">Saturday is the day off</label>
+        </div>
+         <div class="shift">
+          <input type="checkbox" id="shift" @change="schedule()" v-model="shift">
+            <label for="shift">Shift numerator for a week</label>
+        </div>
+      </div>
     </div>
   </div>
   <script src="js/main.js"></script>
