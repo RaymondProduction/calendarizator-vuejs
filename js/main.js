@@ -9,7 +9,7 @@
             value: '5'
           }],
           table: [],
-          sesons: [],
+          thids: [],
           dayNames: [{
             ru: 'Пн',
             en: 'Mo',
@@ -109,10 +109,13 @@
           return 33 - new Date(this.year, month, 33).getDate();
         },
         weekDay() {
+          let thidsOfYear =[[8,9,10],[11,0,1],[2,3,4]];
           let months = [];
-          for (let s = 0; s < 4; s++) {
+          let numerator = true;
+          for (let i = 0; i < 3; i++) {
             let weeks;
-            for (let m = s * 3; m < (s + 1) * 3; m++) {
+            thidsOfYear[i].forEach((m)=>{
+              console.log(m);
               weeks = [];
               days = new Array(7);
               let monthLength = this.daysInMonth(m);
@@ -129,18 +132,20 @@
                 };
                 if (day === 7 || d >= monthLength) {
                   weeks.push({
-                    days: days
+                    days: days,
+                    numerator : numerator,
                   });
                   days = new Array(7);
                 }
+                if (day ===7) numerator = !numerator;
               }
               months.push({
                 weeks: weeks,
                 name: this.nameMonth[m].en,
                 number: m+1,
               });
-            }
-            this.sesons.push(months);
+            });
+            this.thids.push(months);
             months = [];
           }
         },
@@ -150,11 +155,15 @@
           this.table = [];
           let dataForTable =[];
           let number = 1;
-          this.sesons.forEach((seson) => {
-            seson.forEach((month) => {
+          this.thids.forEach((thid) => {
+            thid.forEach((month) => {
               month.weeks.forEach((week) => {
                 week.days.forEach((day) => {
-                  if (this.dayNames[day.name-1].check) dataForTable.push({
+                  if (
+                    this.dayNames[day.name-1].numerator && week.numerator
+                    ||
+                    this.dayNames[day.name-1].denominator && !week.numerator
+                    ) dataForTable.push({
                     day: day.number,
                     month: month.number,
                     number: number++,
@@ -181,6 +190,6 @@
       created() {
         this.weekDay();
         this.schedule();
-        console.log(this.sesons)
+        console.log(this.thids)
       },
     })

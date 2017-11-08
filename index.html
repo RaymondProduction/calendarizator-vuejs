@@ -46,32 +46,61 @@
     }
     .calendar{
      /* border:1px solid red;*/
-      width:80%;
+      width:600px;
       float:left;
     }
     .table{
+      position: absolute;
+      left: 610px;
+      top: 2px;
       border:1px solid black;
-      float:left;
+      /*float:left;*/
       height: 100px;
       width: 300px;
       overflow-y: scroll;
       overflow-x: hidden;
     }
     .option{
-      float:left;
-      clear: left;
+      position: absolute;
+      left: 610px;
+      top: 110px;
+      width: 400px;
+    }
+    .numerator{
+      position: absolute;
+      left: 0px;
+      top:0px;
+    }
+    .denominator{
+      position: absolute;
+      left: 0px;
+      top:30px;
+    }
+    .numerator-label{
+      margin-right: 15px;
+      float: left;
+    }
+    .denominator-label{
+      float: left;
     }
     .chekboxes{
-       display: inline-block;
+       float: left;
+    }
+    .panel{
+      width: 400px;
+      float: left;
+    }
+    #app{
+      position:relative;
     }
   </style>
 </head>
 <body>
   <div id="app">
     <div class="calendar">
-      <table  width=80% v-for="seson in sesons">
+      <table  width="600px" v-for="thid in thids">
         <tr>
-          <td valign="top" v-for="month in seson" style="padding:10px">
+          <td valign="top" v-for="month in thid" style="padding:10px">
             <span>{{month.name}}</span>
             <table style="color: blue">
             <tr>
@@ -87,26 +116,37 @@
         </tr>
       </table>
     </div>
-    <div class="table">
-      <table class="schedule">
-        <tr>
-          <th class="schedule">A</th>
-          <th class="schedule">B</th>
-          <th class="schedule">C</th>
-          <th class="schedule">D</th>
-        </tr>
-        <tr class="schedule" v-for="cols in table">
-         <td class="schedule" v-for="date in cols" v-if="date">{{date.number}}) {{date.day}}/{{date.month}}</td>
-         <td class="schedule" v-else></td>
-        </tr>
-      </table>
-    </div>
-    <div class="option">
-      <div class="chekboxes" v-for="day in dayNames">
-        <input type="checkbox" id="day.en" @change="schedule()" v-model="day.check">
-        <label for="day.en">{{day.en}}</label>
+    <div class="panel">
+      <div class="table">
+        <table class="schedule">
+          <tr>
+            <th class="schedule">A</th>
+            <th class="schedule">B</th>
+            <th class="schedule">C</th>
+            <th class="schedule">D</th>
+          </tr>
+          <tr class="schedule" v-for="cols in table">
+           <td class="schedule" v-for="date in cols" v-if="date">{{date.number}}) {{date.day}}/{{date.month}}</td>
+           <td class="schedule" v-else></td>
+          </tr>
+        </table>
       </div>
-  </div>
+      <div class="option">
+        <div class="numerator">
+          <div class="numerator-label">Numerator:</div>
+          <div class="chekboxes" v-for="day in dayNames">
+            <input type="checkbox" id="day.en" @change="schedule()" v-model="day.numerator">
+            <label for="day.en">{{day.en}}</label>
+          </div>
+        </div>
+        <div class="denominator">
+          <div class="denominator-label">Denominator:</div>
+          <div class="chekboxes" v-for="day in dayNames">
+            <input type="checkbox" id="day.en" @change="schedule()" v-model="day.denominator">
+            <label for="day.en">{{day.en}}</label>
+          </div>
+        </div>
+    </div>
     </div>
   </div>
   <script src="js/main.js"></script>
