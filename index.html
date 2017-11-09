@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Calendarizator</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <script src="https://unpkg.com/vue"></script>
   <script src="http://underscorejs.ru/underscore-min.js"></script>
   <style>
@@ -110,9 +111,17 @@
   <div id="app">
     <div class="calendar">
        <div class="year">
-        <span>Year:</span>
+        <span>{{captions.year[lang]}}:</span>
         <select v-model="year" @change="generatorOfCalendar(); schedule()">
           <option v-for="y in years"  v-bind:value="y">{{y}}/{{y+1}}</option>
+        </select>
+      </div>
+      <div class="language">
+        <span>{{captions.lang[lang]}}:</span>
+        <select v-model="lang" @change="generatorOfCalendar();">
+          <option value="ua">UA</option>
+          <option value="ru">RU</option>
+          <option value="en">EN</option>
         </select>
       </div>
       <table  width="600px" v-for="thid in thids">
@@ -121,7 +130,7 @@
             <span>{{month.name}}</span>
             <table style="color: blue">
             <tr>
-              <td style="color: gray" v-for="dayName in dayNames">{{dayName.en}}</td>
+              <td style="color: gray" v-for="dayName in dayNames">{{dayName[lang]}}</td>
             </tr>
             <tr v-for="week in month.weeks">
               <td v-for="day in week.days" @click="reaction(day)">
@@ -133,7 +142,7 @@
         </tr>
       </table>
     </div>
-    <h1>Schedule:</h1>
+    <h1>{{captions.table[lang]}}:</h1>
     <div class="panel">
       <div class="schedule">
         <table class="table">
@@ -151,26 +160,26 @@
       </div>
       <div class="option">
         <div class="numerator">
-          <div class="numerator-label">Numerator:</div>
+          <div class="numerator-label">{{captions.numerator[lang]}}:</div>
           <div class="chekboxes" v-for="(day, i) in dayNames">
             <input v-if="i!=6" type="checkbox" id="day.en" @change="schedule()" v-model="day.numerator">
-            <label v-if="i!=6" for="day.en">{{day.en}}</label>
+            <label v-if="i!=6" for="day.en">{{day[lang]}}</label>
           </div>
         </div>
         <div class="denominator">
-          <div class="denominator-label">Denominator:</div>
+          <div class="denominator-label">{{captions.denominator[lang]}}:</div>
           <div class="chekboxes" v-for="(day, i)  in dayNames">
             <input v-if="i!=6" type="checkbox" id="day.en" @change="schedule()" v-model="day.denominator">
-            <label v-if="i!=6"  for="day.en">{{day.en}}</label>
+            <label v-if="i!=6"  for="day.en">{{day[lang]}}</label>
           </div>
         </div>
         <div class="saturday">
           <input type="checkbox" id="saturday" @change="generatorOfCalendar(); schedule()" v-model="saturdayIsDayOff">
-            <label for="saturday">Saturday is the day off</label>
+            <label for="saturday">{{captions.saturdayIsDayOff[lang]}}</label>
         </div>
          <div class="shift">
           <input type="checkbox" id="shift" @change="schedule()" v-model="shift">
-            <label for="shift">Shift numerator for a week</label>
+            <label for="shift">{{captions.shift[lang]}}</label>
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@
       el: '#app',
       data() {
         return {
+          lang: 'ru',
           years: [],
           year: new Date().getFullYear(),
           items: [{
@@ -21,74 +22,118 @@
             d1m4: true,
             d2m4: true
           },
+          captions: {
+            year: {
+              ru: 'Учебный год',
+              ua: 'Навчальний рік',
+              en: 'Year of a school'
+            },
+            lang: {
+              ru: 'Язык',
+              ua: 'Мова',
+              en: 'Language'
+            },
+            table: {
+              ru: 'Таблица дат',
+              ua: 'Таблиця дат',
+              en: 'Table of dates'
+            },
+            numerator: {
+              ru: 'Числитель',
+              ua: 'Чисельник',
+              en: 'Numerator'
+            },
+            denominator: {
+              ru: 'Знаменатель',
+              ua: 'Знаменник',
+              en: 'Denominator'
+            },
+            saturdayIsDayOff: {
+              ru: 'Суббота выходной',
+              ua: 'Субота вихідний',
+              en: 'Saturday is the day of'
+            },
+            shift: {
+              ru: 'Сдвинуть числитель на неделю',
+              ua: 'Зсунути чиельни на тиждень',
+              en: 'Shift numerator for a week'
+            }
+          },
           dayNames: [{
             ru: 'Пн',
             en: 'Mon',
+            ua: 'Пн'
           }, {
             ru: 'Вт',
             en: 'Tue',
+            ua: 'Вт',
           }, {
             ru: 'Ср',
             en: 'Wed',
+            ua: 'Ср',
           }, {
             ru: 'Чт',
             en: 'Thu',
+            ua: 'Чт'
           }, {
             ru: 'Пт',
             en: 'Fri',
+            ua: 'Пт'
           }, {
             ru: 'Сб',
             en: 'Sat',
+            ua: 'Сб'
           }, {
             ru: 'Вс',
-            en: 'Sun'
+            en: 'Sun',
+            ua: 'Нд',
           }, ],
           nameMonth: [{
-            uk: 'Январь',
+            ru: 'Январь',
             en: 'January',
             ua: 'Січень',
           }, {
-            uk: 'Февраль',
+            ru: 'Февраль',
             en: 'February',
             ua: 'Лютий',
           }, {
-            uk: 'Март',
+            ru: 'Март',
             en: 'March',
             ua: 'Березень',
           }, {
-            uk: 'Апрель',
+            ru: 'Апрель',
             en: 'April',
             ua: 'Квітень',
           }, {
-            uk: 'Май',
+            ru: 'Май',
             en: 'May',
             ua: 'Травень',
           }, {
-            uk: 'Июнь',
+            ru: 'Июнь',
             en: 'June',
             ua: 'Червень',
           }, {
-            uk: 'Июль',
+            ru: 'Июль',
             en: 'July',
             ua: 'Липень',
           }, {
-            uk: 'Август',
+            ru: 'Август',
             en: 'August',
             ua: 'Серпень',
           }, {
-            uk: 'Сентябрь',
+            ru: 'Сентябрь',
             en: 'September',
             ua: 'Вересень',
           }, {
-            uk: 'Октябрь',
+            ru: 'Октябрь',
             en: 'October',
             ua: 'Жовтень',
           }, {
-            uk: 'Ноябрь',
+            ru: 'Ноябрь',
             en: 'November',
             ua: 'Листопад',
           }, {
-            uk: 'Декабрь',
+            ru: 'Декабрь',
             en: 'December',
             ua: 'Грудень',
           }, ]
@@ -128,7 +173,6 @@
           for (let i = 0; i < 3; i++) {
             let weeks;
             thidsOfYear[i].forEach((m) => {
-              console.log(m);
               weeks = [];
               days = new Array(7);
               let monthLength = this.daysInMonth(m);
@@ -154,7 +198,7 @@
               }
               months.push({
                 weeks: weeks,
-                name: this.nameMonth[m].en,
+                name: this.nameMonth[m][this.lang],
                 number: m + 1,
               });
             });
@@ -207,9 +251,9 @@
       created() {
         for (let year = this.year - 5; year < this.year + 5; year++)
           this.years.push(year);
-        console.log(this.years);
+
         this.generatorOfCalendar();
         this.schedule();
-        console.log(this.thids)
+        //console.log(this.thids)
       },
     })
