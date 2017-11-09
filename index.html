@@ -42,6 +42,7 @@
      /* border:1px solid red;*/
       width:700px;
       float:left;
+      text-align: center;
     }
     .schedule{
       position: absolute;
@@ -108,6 +109,12 @@
 <body>
   <div id="app">
     <div class="calendar">
+       <div class="year">
+        <span>Year:</span>
+        <select v-model="year" @change="generatorOfCalendar(); schedule()">
+          <option v-for="y in years"  v-bind:value="y">{{y}}/{{y+1}}</option>
+        </select>
+      </div>
       <table  width="600px" v-for="thid in thids">
         <tr>
           <td valign="top" v-for="month in thid" style="padding:10px">

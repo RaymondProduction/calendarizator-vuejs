@@ -2,7 +2,8 @@
       el: '#app',
       data() {
         return {
-          year: 2017,
+          years: [],
+          year: new Date().getFullYear(),
           items: [{
             value: '1'
           }, {
@@ -117,23 +118,26 @@
         },
         generatorOfCalendar() {
           this.thids = [];
-          let thidsOfYear =[[8,9,10],[11,0,1],[2,3,4]];
+          let thidsOfYear = [
+            [8, 9, 10],
+            [11, 0, 1],
+            [2, 3, 4]
+          ];
           let months = [];
-          let status =0;
+          let status = 0;
           for (let i = 0; i < 3; i++) {
             let weeks;
-            thidsOfYear[i].forEach((m)=>{
+            thidsOfYear[i].forEach((m) => {
               console.log(m);
               weeks = [];
               days = new Array(7);
               let monthLength = this.daysInMonth(m);
               for (let d = 1; d < monthLength + 1; d++) {
-                let day = new Date(this.year, m, d).getDay();
+                let day = new Date(m < 8 ? this.year + 1 : this.year, m, d).getDay();
                 if (day == 0) {
                   day = 7
                 }
-                if (day ==7 || (day == 6 && this.saturdayIsDayOff)
-                  || this.holiday['d'+d+'m'+m]) status = 1
+                if (day == 7 || (day == 6 && this.saturdayIsDayOff) || this.holiday['d' + d + 'm' + m]) status = 1
                 else status = 0;
                 days[day - 1] = {
                   number: d,
@@ -151,51 +155,49 @@
               months.push({
                 weeks: weeks,
                 name: this.nameMonth[m].en,
-                number: m+1,
+                number: m + 1,
               });
             });
             this.thids.push(months);
             months = [];
           }
         },
-        schedule(){
+        schedule() {
           // Schedule, prepare array for table of schedule
           this.table = [];
-          let dataForTable =[];
+          let dataForTable = [];
           let number = 1;
           let numerator = this.shift ? false : true;
           let holiday = false;
           this.thids.forEach((thid) => {
-            thid.forEach((month) => {
-              month.weeks.forEach((week) => {
-                week.days.forEach((day) => {
-                  if (
-                    (this.dayNames[day.name-1].numerator && numerator
-                    ||
-                    this.dayNames[day.name-1].denominator && !numerator)
-                    &&
-                    day.status == 0
+              thid.forEach((month) => {
+                month.weeks.forEach((week) => {
+                  week.days.forEach((day) => {
+                    if (
+                      (this.dayNames[day.name - 1].numerator && numerator ||
+                        this.dayNames[day.name - 1].denominator && !numerator) &&
+                      day.status == 0
                     ) dataForTable.push({
-                    day: day.number,
-                    month: month.number,
-                    number: number++,
-                  });
-                  if (day.status == 2) holiday = true;
-                  if (day.name == 1 && day.status != 2) holiday = false;
-                  if (day.name == 7 && !holiday) numerator = !numerator;
+                      day: day.number,
+                      month: month.number,
+                      number: number++,
+                    });
+                    if (day.status == 2) holiday = true;
+                    if (day.name == 1 && day.status != 2) holiday = false;
+                    if (day.name == 7 && !holiday) numerator = !numerator;
+                  })
                 })
               })
             })
-          })
-          // Cut rows
+            // Cut rows
           let col = 4;
-          let maxRow=20;
-          let row = dataForTable.length<col*maxRow ? maxRow : parseInt((dataForTable.length-1)/col)+1;
-          for (let currentRow = 0;currentRow< row;currentRow++){
-             let cols = new Array(col);
-            for (let currentCol = 0; currentCol<col;currentCol++) {
-              if (dataForTable[currentCol*row+currentRow]){
-                cols[currentCol] = dataForTable[currentCol*row+currentRow];
+          let maxRow = 20;
+          let row = dataForTable.length < col * maxRow ? maxRow : parseInt((dataForTable.length - 1) / col) + 1;
+          for (let currentRow = 0; currentRow < row; currentRow++) {
+            let cols = new Array(col);
+            for (let currentCol = 0; currentCol < col; currentCol++) {
+              if (dataForTable[currentCol * row + currentRow]) {
+                cols[currentCol] = dataForTable[currentCol * row + currentRow];
               }
             }
             this.table.push(cols)
@@ -203,6 +205,9 @@
         }
       },
       created() {
+        for (let year = this.year - 5; year < this.year + 5; year++)
+          this.years.push(year);
+        console.log(this.years);
         this.generatorOfCalendar();
         this.schedule();
         console.log(this.thids)
