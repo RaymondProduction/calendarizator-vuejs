@@ -27,6 +27,10 @@
     width: 290px;
     border-collapse: collapse;
     }
+    .table-header {
+    width: 290px;
+    border-collapse: collapse;
+    }
     .table>tr {
       border: none;
     }
@@ -48,7 +52,7 @@
     .schedule{
       position: absolute;
       left: 0px;
-      top: 2px;
+      top: 20px;
       border:1px solid black;
       /*float:left;*/
       height: 400px;
@@ -59,7 +63,7 @@
     .option{
       position: absolute;
       left: 0px;
-      top: 410px;
+      top: 430px;
       width: 400px;
     }
     .numerator{
@@ -144,14 +148,16 @@
     </div>
     <h1>{{captions.table[lang]}}:</h1>
     <div class="panel">
-      <div class="schedule">
-        <table class="table">
+      <table class="table-header">
           <tr>
             <th class="table">A</th>
             <th class="table">B</th>
             <th class="table">C</th>
             <th class="table">D</th>
           </tr>
+      </table>
+      <div class="schedule">
+        <table class="table">
           <tr class="table" v-for="cols in table">
            <td class="table" v-for="date in cols" v-if="date">{{date.number}}) {{date.day}}/{{date.month}}</td>
            <td class="table" v-else></td>

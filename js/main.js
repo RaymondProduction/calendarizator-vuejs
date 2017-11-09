@@ -235,7 +235,7 @@
             })
             // Cut rows
           let col = 4;
-          let maxRow = 20;
+          let maxRow = 22;
           let row = dataForTable.length < col * maxRow ? maxRow : parseInt((dataForTable.length - 1) / col) + 1;
           for (let currentRow = 0; currentRow < row; currentRow++) {
             let cols = new Array(col);
