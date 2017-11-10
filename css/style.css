@@ -1,0 +1,118 @@
+body {
+  cursor: default;
+  user-select: none;
+}
+.weekdays {
+  color: blue;
+}
+.dayoff {
+  color: red;
+}
+.holiday {
+  color: green;
+}
+.weight {
+ font-weight: 600;
+}
+.table-header {
+  left: 0px;
+  border: solid 1px gray;
+  width: 320px;
+  border-collapse: collapse;
+}
+.table-header>th{
+  width: 25%;
+  border: solid 1px gray;
+}
+.table {
+height: : 2000px;
+width: 320px;
+border-collapse: collapse;
+}
+.table>tr {
+  border: none;
+}
+.table>td{
+  position:relative;
+  width: 25%;
+  border-right: solid 1px gray;
+}
+.table>th{
+  width: 25%;
+  border-right: solid 1px gray;
+  border-bottom: solid 1px gray
+}
+.calendar{
+ /* border:1px solid red;*/
+  width:700px;
+  float:left;
+  text-align: center;
+}
+.schedule{
+  position: absolute;
+  left: 0px;
+  top: 20px;
+  border:1px solid black;
+  /*float:left;*/
+  height: 400px;
+  width: 335px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+.option{
+  position: absolute;
+  left: 0px;
+  top: 430px;
+  width: 400px;
+}
+.numerator{
+  position: absolute;
+  left: 0px;
+  top:0px;
+}
+.denominator{
+  position: absolute;
+  left: 0px;
+  top:30px;
+}
+.saturday{
+  position: absolute;
+  left: 0px;
+  top:60px;
+}
+.shift{
+  position: absolute;
+  left: 0px;
+  top:80px;
+}
+.numerator-label{
+  margin-right: 15px;
+  float: left;
+}
+.denominator-label{
+  float: left;
+}
+.chekboxes{
+   float: left;
+}
+.panel{
+  position:relative;
+  width: 400px;
+  float: left;
+}
+.day-of-calendar{
+  position: relative;
+}
+.day-of-calendar>img{
+   position  : absolute;
+   left: -3px;
+   top: -5px;
+}
+#app{
+  position:relative;
+  font-family:Verdana, Arial, Helvetica, sans-serif;
+  font-size:14px;
+}
+h1 {
+  font-size:12pt;
+}

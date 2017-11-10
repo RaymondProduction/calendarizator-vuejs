@@ -2,7 +2,7 @@
       el: '#app',
       data() {
         return {
-          lang: 'ru',
+          lang: 'en',
           years: [],
           year: new Date().getFullYear(),
           items: [{
@@ -147,6 +147,17 @@
           if (day.status > 2) day.status = 0;
           this.schedule();
         },
+        markDay(day) {
+          if (day && day.status) {
+            switch(day.status) {
+              case 1:
+                return './image/dayoff.png';
+              case 2:
+                return './image/vacationday.png'
+            }
+          }
+          return;
+        },
         classObject(day) {
           //if (!day.name) return;
           return {
@@ -235,7 +246,7 @@
             })
             // Cut rows
           let col = 4;
-          let maxRow = 22;
+          let maxRow = 21;
           let row = dataForTable.length < col * maxRow ? maxRow : parseInt((dataForTable.length - 1) / col) + 1;
           for (let currentRow = 0; currentRow < row; currentRow++) {
             let cols = new Array(col);
