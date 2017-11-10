@@ -8,91 +8,92 @@
   <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
-<div style="text-align: center">
   <div id="app">
-    <div class="calendar">
-       <div class="year">
-        <span>{{captions.year[lang]}}:</span>
-        <select v-model="year" @change="generatorOfCalendar(); schedule()">
-          <option v-for="y in years"  v-bind:value="y">{{y}}/{{y+1}}</option>
-        </select>
-      </div>
-      <div class="language">
-        <span>{{captions.lang[lang]}}:</span>
-        <select v-model="lang" @change="generatorOfCalendar();">
-          <option value="ua">UA</option>
-          <option value="ru">RU</option>
-          <option value="en">EN</option>
-        </select>
-      </div>
-      <table  width="600px" v-for="thid in thids">
-        <tr>
-          <td valign="top" v-for="month in thid" style="padding:10px">
-            <span>{{month.name}}</span>
-            <table style="color: blue">
-            <tr>
-              <td style="color: gray" v-for="dayName in dayNames">{{dayName[lang]}}</td>
-            </tr>
-            <tr v-for="week in month.weeks">
-              <td v-for="day in week.days" @click="reaction(day);">
-                <div class = "day-of-calendar">
-                  <img  v-if="markDay(day)" v-bind:src="markDay(day)">
-                  <span  v-if="day" v-bind:class="classObject(day)">{{day.number}}</span>
-                </div>
-              </td>
-            </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
-    </div>
-    <h1>{{captions.table[lang]}}:</h1>
-    <div class="panel">
-      <div class="table-header">
-        <table class="table-header">
-            <tr class="table-header">
-              <th>A</th>
-              <th>B</th>
-              <th>C</th>
-              <th>D</th>
-            </tr>
-        </table>
-      </div>
-      <div class="schedule">
-        <table class="table">
-          <tr class="table" v-for="cols in table">
-           <td class="table" v-for="date in cols" v-if="date">{{date.number}}) {{date.day}}/{{date.month}}</td>
-           <td class="table" v-else></td>
+      <header>
+        <div><h1>Calendarizator ver 2.1 beta</h1></div>
+        <div class="language">
+            <span>{{captions.lang[lang]}}:</span>
+            <select v-model="lang" @change="generatorOfCalendar();">
+              <option value="ua">UA</option>
+              <option value="ru">RU</option>
+              <option value="en">EN</option>
+            </select>
+        </div>
+      </header>
+      <div class="calendar">
+         <div class="year">
+          <span>{{captions.year[lang]}}:</span>
+          <select v-model="year" @change="generatorOfCalendar(); schedule()">
+            <option v-for="y in years"  v-bind:value="y">{{y}}/{{y+1}}</option>
+          </select>
+        </div>
+        <table v-for="thid in thids">
+          <tr>
+            <td v-for="month in thid" style="padding:10px">
+              <span>{{month.name}}</span>
+              <table style="color: blue">
+              <tr>
+                <td style="color: gray" v-for="dayName in dayNames">{{dayName[lang]}}</td>
+              </tr>
+              <tr v-for="week in month.weeks">
+                <td v-for="day in week.days" @click="reaction(day);">
+                  <div class = "day-of-calendar">
+                    <img  v-if="markDay(day)" v-bind:src="markDay(day)">
+                    <span  v-if="day" v-bind:class="classObject(day)">{{day.number}}</span>
+                  </div>
+                </td>
+              </tr>
+              </table>
+            </td>
           </tr>
         </table>
       </div>
-      <div class="option">
-        <div class="numerator">
-          <div class="numerator-label">{{captions.numerator[lang]}}:</div>
-          <div class="chekboxes" v-for="(day, i) in dayNames">
-            <input v-if="i!=6" type="checkbox" id="day.en" @change="schedule()" v-model="day.numerator">
-            <label v-if="i!=6" for="day.en">{{day[lang]}}</label>
-          </div>
+      <div class="panel">
+        <h1>{{captions.table[lang]}}:</h1>
+        <div class="table-head">
+          <table class="table-header">
+              <tr class="table-header">
+                <th>A</th>
+                <th>B</th>
+                <th>C</th>
+                <th>D</th>
+              </tr>
+          </table>
         </div>
-        <div class="denominator">
-          <div class="denominator-label">{{captions.denominator[lang]}}:</div>
-          <div class="chekboxes" v-for="(day, i)  in dayNames">
-            <input v-if="i!=6" type="checkbox" id="day.en" @change="schedule()" v-model="day.denominator">
-            <label v-if="i!=6"  for="day.en">{{day[lang]}}</label>
-          </div>
-        </div>
-        <div class="saturday">
-          <input type="checkbox" id="saturday" @change="generatorOfCalendar(); schedule()" v-model="saturdayIsDayOff">
-            <label for="saturday">{{captions.saturdayIsDayOff[lang]}}</label>
-        </div>
-         <div class="shift">
-          <input type="checkbox" id="shift" @change="schedule()" v-model="shift">
-            <label for="shift">{{captions.shift[lang]}}</label>
+        <div class="schedule">
+          <table class="table">
+            <tr class="table" v-for="cols in table">
+             <td class="table" v-for="date in cols" v-if="table && date">{{date.number}}) {{date.day}}/{{date.month}}</td>
+             <td class="table" v-else><br></td>
+            </tr>
+          </table>
         </div>
       </div>
-    </div>
+        <div class="option">
+          <div class="numerator">
+            <div class="numerator-label">{{captions.numerator[lang]}}:</div>
+            <div class="chekboxes" v-for="day in dayNames">
+              <input type="checkbox" id="day.en" @change="schedule()" v-model="day.numerator">
+              <label for="day.en">{{day[lang]}}</label>
+            </div>
+          </div>
+          <div class="denominator">
+            <div class="denominator-label">{{captions.denominator[lang]}}:</div>
+            <div class="chekboxes" v-for="day in dayNames">
+              <input type="checkbox" id="day.en" @change="schedule()" v-model="day.denominator">
+              <label for="day.en">{{day[lang]}}</label>
+            </div>
+          </div>
+          <div class="saturday">
+            <input type="checkbox" id="saturday" @change="generatorOfCalendar(); schedule()" v-model="saturdayIsDayOff">
+              <label for="saturday">{{captions.saturdayIsDayOff[lang]}}</label>
+          </div>
+           <div class="shift">
+            <input type="checkbox" id="shift" @change="schedule()" v-model="shift">
+              <label for="shift">{{captions.shift[lang]}}</label>
+          </div>
+        </div>
   </div>
   <script src="js/main.js"></script>
-  </div>
 </body>
 </html>

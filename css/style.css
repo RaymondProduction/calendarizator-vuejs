@@ -14,8 +14,14 @@ body {
 .weight {
  font-weight: 600;
 }
+.table-head{
+  position: relative;
+  left: 20px;
+  border: solid 1px gray;
+  width: 320px;
+  border-collapse: collapse;
+}
 .table-header {
-  left: 0px;
   border: solid 1px gray;
   width: 320px;
   border-collapse: collapse;
@@ -25,9 +31,9 @@ body {
   border: solid 1px gray;
 }
 .table {
-height: : 2000px;
-width: 320px;
-border-collapse: collapse;
+  height: : 2000px;
+  width: 320px;
+  border-collapse: collapse;
 }
 .table>tr {
   border: none;
@@ -43,15 +49,16 @@ border-collapse: collapse;
   border-bottom: solid 1px gray
 }
 .calendar{
- /* border:1px solid red;*/
+  position: relative;
+  border:1px solid gray;
   width:700px;
+  top: 20px;
   float:left;
   text-align: center;
 }
 .schedule{
-  position: absolute;
-  left: 0px;
-  top: 20px;
+  position: relative;
+  left: 20px;
   border:1px solid black;
   /*float:left;*/
   height: 400px;
@@ -60,10 +67,12 @@ border-collapse: collapse;
   overflow-x: hidden;
 }
 .option{
-  position: absolute;
+  border:1px solid gray;
+  position: relative;
   left: 0px;
-  top: 430px;
-  width: 400px;
+  top: 600px;
+  width: 500px;
+  height: 110px;
 }
 .numerator{
   position: absolute;
@@ -98,6 +107,7 @@ border-collapse: collapse;
 .panel{
   position:relative;
   width: 400px;
+  left: 20px;
   float: left;
 }
 .day-of-calendar{
@@ -109,10 +119,22 @@ border-collapse: collapse;
    top: -5px;
 }
 #app{
+  margin: auto; /* center for div */
+  width: 1200px;
+  height: 900px;
   position:relative;
   font-family:Verdana, Arial, Helvetica, sans-serif;
   font-size:14px;
 }
 h1 {
   font-size:12pt;
+}
+.language{
+  left: 0px;
+  top: 0px;
+}
+header{
+  border:1px solid gray;
+  width: 100%;
+  background: brown;
 }
