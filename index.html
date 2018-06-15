@@ -3,8 +3,15 @@
 <head>
   <title>Calendarizator</title>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <script src="https://unpkg.com/vue"></script>
-  <script src="http://underscorejs.ru/underscore-min.js"></script>
+  <script type="text/javascript" src="js/lib/vue.js"></script>
+  <script type="text/javascript" src="js/lib/underscore-min.js"></script>
+  <script type="text/javascript" src="js/lib/jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="js/lib/tableExport.jquery.plugin/libs/js-xlsx/xlsx.core.min.js"></script>
+  <script type="text/javascript" src="js/lib/tableExport.jquery.plugin/libs/FileSaver/FileSaver.min.js"></script>
+  <script type="text/javascript" src="js/lib/tableExport.jquery.plugin/libs/jsPDF/jspdf.min.js"></script>
+  <script type="text/javascript" src="js/lib/tableExport.jquery.plugin/libs/jsPDF-AutoTable/jspdf.plugin.autotable.js"></script>
+  <script type="text/javascript" src="js/lib/tableExport.jquery.plugin/libs/html2canvas/html2canvas.min.js"></script>
+  <script type="text/javascript" src="js/lib/tableExport.jquery.plugin/tableExport.js"></script>
   <link rel="stylesheet" type="text/css" href="./css/style.css">
 </head>
 <body>
@@ -61,13 +68,17 @@
           </table>
         </div>
         <div class="schedule">
-          <table class="table">
+          <table id="table" class="table">
             <tr class="table" v-for="cols in table">
              <td class="table" v-for="date in cols" v-if="table && date">{{date.number}}) {{date.day}}/{{date.month}}</td>
              <td class="table" v-else><br></td>
             </tr>
           </table>
         </div>
+        <a href="#" @click="doExport('#table', {type: 'excel'});">excel</a>
+        <a href="#" @click="doExport('#table', {type: 'png'});">png</a>
+        <a href="#" @click="doExport('#table', {type: 'doc'});">doc</a>
+        <a href="#" @click="doExport('#table', {type: 'pdf'});">pdf</a>
       </div>
         <div class="option">
           <div class="numerator">

@@ -257,6 +257,16 @@
             }
             this.table.push(cols)
           }
+        },
+        doExport(selector, params) {
+          var options = {
+            fileName: 'Table of dates',
+            tableName: 'Table of dates'
+          };
+
+          jQuery.extend(true, options, params);
+
+          $(selector).tableExport(options);
         }
       },
       created() {
@@ -266,5 +276,5 @@
         this.generatorOfCalendar();
         this.schedule();
         //console.log(this.thids)
-      },
+      }
     })
